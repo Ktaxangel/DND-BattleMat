@@ -1,0 +1,11 @@
+all: BattleMat.exe
+
+BattleMat.exe: makeDirectory
+	g++ -std=c++11 -g -o linux/BattleMat.exe *cpp
+
+makeDirectory:
+	mkdir -p linux
+
+clean:
+	#remove the linux directory
+	rm -rf linux

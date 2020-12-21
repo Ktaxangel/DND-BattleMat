@@ -6,7 +6,9 @@ CONFIG -= qt
 CONFIG -= debug_and_release
 
 SOURCES += main.cpp \
-    BattleMat.cpp
+    attack.cpp \
+    enemy.cpp \
+    player.cpp
 
 QMAKE_CXXFLAGS += -pedantic
 QMAKE_CXXFLAGS += -pedantic-errors
@@ -18,6 +20,5 @@ QMAKE_CXXFLAGS += -Winit-self
 QMAKE_CXXFLAGS += -Wshadow
 QMAKE_CXXFLAGS += -Wconversion
 
-HEADERS += \
-    BattleMat.h
+HEADERS +=
 
