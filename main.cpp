@@ -67,24 +67,61 @@ int main(){
 
         turn = true;
         while(turn){
-            std::cout << "\nOptions:\nOption 1: Move\nOption 2: Attack\nOption 3: Defend";
+            std::cout << "\nOptions:"
+                         "\nOption 1: Move"
+                         "\nOption 2: Attack"
+                         "\nOption 3: Defend"
+                         "\nOption 4: End Turn"
+                         "\n:> ";
             std::cin >> option;
 
             switch(option) {
             case 1:{
                 int x(0);
                 int y(0);
-                std::cout << "Enter x and y change";
-                std::cin >> x, std::cin >> y;
-
+                std::cout << "Enter x and y change" << std::endl;
+                std::cout << "X + ";
+                std::cin >> x;
+                std::cout << "Y + ";
+                std::cin >> y;
+                while(!p.move(x,y,xRange,yRange)){
+                    std::cout << "Enter new x and y change";
+                    std::cout << "X + ";
+                    std::cin >> x;
+                    std::cout << "Y + ";
+                    std::cin >> y;
+                }
+                std::cout << p.name << " now at x: "
+                          << p.xPos << " \ty: "
+                          << p.yPos << std::endl;
             }break;
 
             case 2:{
+                if(p.attacked == false){
+                    /*
+                     * List of attacks the player has is displayed
+                     * User chooses attack
+                     * If no enemies are withing attacks range
+                     * send to console "no enemies in attack reach"
+                     * Send to console "attack who?"
+                     * then display enemies that are within attack range
+                     * User then chooses enemy
+                     *
+                    */
+                    p.attacked = true;
+                }
+                else{std::cout << "You've already attacked!" << std::endl;}
 
             }break;
 
             case 3:{
 
+            }break;
+
+            case 4:{
+                std::cout << p.name << " Ended thier turn";
+                turn = false;
+                p.turnEnd();
             }break;
 
             default:{
@@ -93,7 +130,7 @@ int main(){
             }
         }
 
-        std::cout << "\nEnter option: ";
+        std::cout << "\nEnter option: \n:> ";
         std::cin >> option;
 
         switch (option) {
