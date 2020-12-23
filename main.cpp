@@ -9,7 +9,7 @@ void lineBreak(){
 
 int main(){
 
-
+    std::srand(24);
     player p(1, 1, "Player"); // default player
     int xRange = 25; // x range where actors can be randomly placed
     int yRange = 25; // y range where actors can be randomly placed
@@ -49,6 +49,9 @@ int main(){
         std::cout << "-------------turn " << turnNum << "-------------" << std::endl;
         turnNum++;
 
+        for(int i = 0; i < (int)plArr.size(); i++){
+            std::cout << plArr[i].name << " at x: " << plArr[i].xPos << " , y: " << plArr[i].yPos << std::endl;
+        }
         for(int i = 0; i < (int)enArr.size(); i++){
             std::cout << enArr[i].name << " at x: " << enArr[i].xPos << " , y: " << enArr[i].yPos << std::endl;
         }
@@ -77,23 +80,31 @@ int main(){
 
             switch(option) {
             case 1:{
-                int x(0);
-                int y(0);
-                std::cout << "Enter x and y change" << std::endl;
-                std::cout << "X + ";
-                std::cin >> x;
-                std::cout << "Y + ";
-                std::cin >> y;
-                while(!p.move(x,y,xRange,yRange)){
-                    std::cout << "Enter new x and y change";
+                if(p.tempMS > 0){
+                    int x(0);
+                    int y(0);
+                    std::cout << "You have " << p.tempMS << " move spaces left and at "
+                                 "\nx: " << p.xPos <<
+                                 "\ny: " << p.yPos << std::endl;
+                    std::cout << "Enter x and y change" << std::endl;
                     std::cout << "X + ";
                     std::cin >> x;
                     std::cout << "Y + ";
                     std::cin >> y;
-                }
-                std::cout << p.name << " now at x: "
-                          << p.xPos << " \ty: "
-                          << p.yPos << std::endl;
+
+                    while(!p.move(x,y,xRange,yRange)){
+                        std::cout << "Enter new x and y change" << std::endl;
+                        std::cout << "X + ";
+                        std::cin >> x;
+                        std::cout << "Y + ";
+                        std::cin >> y;
+                    }
+
+                    std::cout << p.name << " now at x: "
+                              << p.xPos << " \ty: "
+                              << p.yPos << std::endl;
+                } else {std::cout << "You've used all your movement" << std::endl;}
+
             }break;
 
             case 2:{
@@ -108,6 +119,8 @@ int main(){
                      * User then chooses enemy
                      *
                     */
+
+
                     p.attacked = true;
                 }
                 else{std::cout << "You've already attacked!" << std::endl;}
@@ -119,9 +132,16 @@ int main(){
             }break;
 
             case 4:{
-                std::cout << p.name << " Ended thier turn";
+                std::cout << p.name << " Ended their turn";
                 turn = false;
                 p.turnEnd();
+            }break;
+
+            case 69:{
+                /*This will be a DM console where any irregularities that occur can happen
+                 *A a good example would be a narritive approach or decisions that affects the actors and can only be accomplished
+                 *with extra commands
+                 */
             }break;
 
             default:{
@@ -138,6 +158,11 @@ int main(){
             enArr[0].attacked(*p.attacks[0], p);
             enArr[0].attacked(attack("test attack", 1), p);
         }break;
+
+        case 69:{
+            combat = false;
+        }break;
+
         default:{
             std::cout << "You decide to defend\n" << std::endl;
         }break;
